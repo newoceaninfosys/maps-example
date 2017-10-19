@@ -23,25 +23,28 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 target 'MyMap' do
-    pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-    pod 'React', path: '../node_modules/react-native', :subspecs => [    
-    'Core',
-    'RCTActionSheet',
-    'RCTAnimation',
-    'RCTGeolocation',
-    'RCTImage',
-    'RCTLinkingIOS',
-    'RCTNetwork',
-    'RCTSettings',
-    'RCTText',
-    'RCTVibration',
-    'RCTWebSocket',
-    'BatchedBridge'
-    ]    
-    
-    pod 'GoogleMaps'  # <~~ remove this line if you do not want to support GoogleMaps on iOS
-    pod 'react-native-maps', path: '../node_modules/react-native-maps/'
-    pod 'react-native-google-maps', path: '../node_modules/react-native-maps/'  # <~~ if you need GoogleMaps support on iOS
+    pod 'React',
+      :path => "../node_modules/react-native",
+      :subspecs => [
+        "Core",
+        "ART",
+        "RCTActionSheet",
+        "RCTAnimation",
+        "RCTCameraRoll",
+        "RCTGeolocation",
+        "RCTImage",
+        "RCTNetwork",
+        "RCTText",
+        "RCTVibration",
+        "RCTWebSocket",
+        "DevSupport",
+        "BatchedBridge"
+      ]
+  pod 'Yoga', :path => "../node_modules/react-native/ReactCommon/yoga"
+  pod 'GoogleMaps'
+  pod 'react-native-maps', path: '../node_modules/react-native-maps/'
+  pod 'react-native-google-maps', path: '../node_modules/react-native-maps/'
+  
 end
 post_install do |installer|
     installer.pods_project.targets.each do |target|
@@ -100,9 +103,12 @@ Then create new `Credentials` key
 ...
 ```
 
+## Step 07:
+When run build with Xcode it will failed duplicate library, delete `-l"react-native-maps"` from both of your `Pods-Example.debug | release.xcconfig` at `OTHER_LDFLAGS`
+
 You're done setting up iOS project, you can now `react-native run-ios`
 
-## Step 07: Paste these line to `android/app/build.gradle`
+## Step 08: Paste these line to `android/app/build.gradle`
 
 ```
 dependencies {
@@ -117,7 +123,7 @@ dependencies {
 }
 ```
 
-## Step 08: Insert key to `android/app/src/AndroidManifest.xml` (Very important)
+## Step 09: Insert key to `android/app/src/AndroidManifest.xml` (Very important)
 
 ```
 <application>
